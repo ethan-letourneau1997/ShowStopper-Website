@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% for episode in season.episodes %}
+            <div class="col-2">
+                <div class="card bg-dark">
+                    <div class="div card-header">
+                        <a href="{% url 'episode' show_id=show_id season_number=season.season_number episode_number=episode.episode_number %}">
+                            <img class="card-img-top img-fluid" id="show" src="http://image.tmdb.org/t/p/original{{episode.still_path}}">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> {{episode.name }} </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

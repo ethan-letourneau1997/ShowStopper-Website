@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% load my_filters %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="display-1 text-center">
+            Search
+        </h1>
+    </div>
+    <div class="row">
+        {% comment %} {% for movie, release_year in movies|zip_lists:release_years %} {% endcomment %}
+        {% for item in search_results %}
+            {% if item.media_type == 'movie' %}
+                {% if item.poster_path != none %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                        <div class="card bg-dark text-white">
+                            <a href="{% url 'movie' item.id %}">
+                                <img class="card-img-top" id="movie" src="http://image.tmdb.org/t/p/w500{{item.poster_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text"> {{ item.title }} </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% elif item.media_type == 'tv' %}
+                {% if item.poster_path != none %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                        <div class="card bg-dark text-white">
+                            <a href="{% url 'show' item.id %}">
+                                <img class="card-img-top" id="show" src="http://image.tmdb.org/t/p/w500{{item.poster_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text"> {{ item.name }} </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% elif item.media_type == 'person' %}
+                {% if item.profile_path != none %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                        <div class="card bg-dark text-white">
+                            <a href="{% url 'actor' item.id %}">
+                                <img class="card-img-top" id="person" src="http://image.tmdb.org/t/p/w500{{item.profile_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text"> {{ item.name }} </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>     
+</div>
+
+{% endblock body %}

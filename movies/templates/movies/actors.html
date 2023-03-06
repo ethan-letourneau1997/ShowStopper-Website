@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="display-1 text-center">
+            Trending Stars
+        </h1>
+    </div>
+    <div class="row">
+        {% for actor in actors %}
+            {% if actor.profile_path != None %}
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                    <ul>
+                        {% for provider in movie.watch_providers.results.US.flatrate %}
+                            <li>{{ provider.provider_name }}</li> 
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

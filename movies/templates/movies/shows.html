@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="display-1 text-center">
+            Trending Shows
+        </h1>
+    </div>
+    <div class="row">
+        {% for show in shows %}
+            {% if show.poster_path != None %}
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                    <div class="card">
+                        <a href="{% url 'show' show.id %}">
+                            <img class="card-img-top" id="show" src="http://image.tmdb.org/t/p/original{{show.poster_path}}">
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

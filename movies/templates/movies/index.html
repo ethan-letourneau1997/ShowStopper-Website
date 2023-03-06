@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="display-1 text-center">
+            Trending
+        </h1>
+    </div>
+    <div class="row">
+        {% for item in trending %}
+            {% comment %} {% if item.poster_path != None %} {% endcomment %}
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-2 col-lg-2 p-4">
+                    <div class="card bg-dark">
+                        {% if item.media_type == 'movie' %}
+                            <a href="{% url 'movie' item.id %}">
+                                <img class="card-img-top" id="movie" src="http://image.tmdb.org/t/p/w500{{item.poster_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {{ item.title }}
+                                </p>
+                            </div>
+                        {% elif item.media_type == 'tv' %}
+                            <a href="{% url 'show' item.id %}">
+                                <img class="card-img-top" id="movie" src="http://image.tmdb.org/t/p/original{{item.poster_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {{ item.name }}
+                                </p>
+                            </div>
+                        {% elif item.media_type == 'person' %}
+                            <a href="{% url 'actor' item.id %}">
+                                <img class="card-img-top" id="movie" src="http://image.tmdb.org/t/p/w500{{item.profile_path}}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {{ item.name }}
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% comment %} {% endif %} {% endcomment %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<style>
+.show-backdrop {
+    background-image: url("http://image.tmdb.org/t/p/original{{show.backdrop_path}}");
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box !important;
+    margin-left: 3%;
+    margin-right: 3%;
+    max-width: calc(100% - 6%);
+    min-height: 60vh;
+    margin-top: 5vh;
+}
+
+.show-backdrop .row {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin:0;
+}
+.show-banner-container {
+    min-height: 60vh;   
+}
+
+</style>
+{% comment %} <h1 class='display-1 text-center'>{{ show.name }}</h1> {% endcomment %}
+    
+    {% comment %} <div class="container">
+        <div class="row">
+            <div class="col-4">
+                    <img class="card-img-top img-fluid" id="show" src="http://image.tmdb.org/t/p/original{{show.poster_path}}">
+            </div>
+            <div class="col">
+                <ul>
+                    {% for season in show.seasons %}
+                    <li>
+                        <a href="{% url 'season' show_id=show.id season_number=season.season_number %}">Link to season</a>
+                        <p> {{season.id}} </p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="container-fluid show-backdrop">
+        <div class="container-fluid show-banner-container" style="background-color:rgba({{r}},{{g}},{{b}},.8);">
+            <div class="row" >
+                <div class="col-3">
+                        <img class="card-img-top img-fluid" id="show" src="http://image.tmdb.org/t/p/original{{show.poster_path}}">
+                </div>
+                <div class="col-7">
+                    <h1 class="text-center">{{show.name}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

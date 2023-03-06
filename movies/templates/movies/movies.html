@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container-fluid movies-container">
+    <div class="row">
+        <h1 class="display-1 text-center">
+            Trending Movies
+        </h1>
+    </div>
+    <div class="row">
+        {% for movie in movies %}
+            {% if movie.poster_path != None %}
+                <div class="col-12 col-sm-6 col-lg-4 col-lg-2 col-xl-2 p-3">
+                    <div class="card movie-card">
+                        <a href="{% url 'movie' movie.id %}">
+                            <img class="card-img-top" id="movie" src="http://image.tmdb.org/t/p/original{{movie.poster_path}}">
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<style>
+.video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+</style>
+
+<style>
+
+.backdrop-container {
+     background-image: url("http://image.tmdb.org/t/p/original{{movie.backdrop_path}}");
+     background-size:cover;
+     background-position: left calc((50vw - 170px) - 500px) top;
+     background-repeat: no-repeat;
+     margin-bottom: 20vh;
+}
+
+.backdrop-filter {
+    background-image: linear-gradient(to right, rgba({{ r }}, {{ g }}, {{ b }}, 1) calc((50vw - 170px) - 340px), rgba({{ r }}, {{ g }}, {{ b }}, 0.84) 50%, rgba({{ r }}, {{ g }}, {{ b }}, 0.84) 100%);
+    padding: 3%;
+}
+
+.poster-col {
+    
+}
+
+.poster-col img {
+    border-radius:10px;
+}
+
+.content-col {
+    padding-left: 5%;
+}
+
+
+
+</style>
+    <div class="container-fluid backdrop-container"">
+        <div class="container-fluid backdrop-filter">
+            <div class="row">
+                <div class="col-3 poster-col">
+                <img src="http://image.tmdb.org/t/p/original{{movie.poster_path}}" alt="" class="img-fluid">
+            </div>
+            <div class="col-8 content-col">
+                <h1 class="display-6"><span class="movie-title">{{movie.title}}</span> ({{ movie.release_date|slice:"0:4" }})</h1>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+    {% comment %} <h1 class='display-1 text-center'>{{ movie.title }}</h1> {% endcomment %}
+    {% comment %} <div class="container-fluid movie-backdrop">
+        <div class="container-fluid movie-banner-container" style="background-color:rgba({{r}},{{g}},{{b}},.8);">
+ 
+     
+            <div class="row" >
+                <div class="col-3 poster-col">
+                        <img class="img-fluid" id="movie" src="http://image.tmdb.org/t/p/original{{movie.poster_path}}">
+                </div>
+                <div class="col-9 banner-content">
+                    <div class="banner-content-filter" style="background-color:rgba({{r}},{{g}},{{b}},.8);">
+                 
+                        <h1 class="display-6"><span class="movie-title">{{movie.title}}</span> ({{ movie.release_date|slice:"0:4" }})</h1>
+                
+                    
+                    {% if review >= 7.5 %}
+                        <div class="review-score green">
+                            <p>{{ review }}</p>
+                        </div>
+                    {% elif review >= 6 %}
+                        <div class="review-score yellow">
+                                <p>{{ review }}</p>
+                        </div>
+                    {% else %}
+                        <div class="review-score red">
+                                    <p>{{ review }}</p>
+                        </div>
+                    {% endif %}
+                    {% if movie.overview %}
+                        <p class="overview"> {{ movie.overview }} </p>
+                    {% endif %}
+                    {% if streaming_services %}
+                        <h5 class="font-weight-bold">Streaming on:</h5>
+                        {% for service in streaming_services %}
+                            <span class="streaming-logo"=>
+                                <img class="img-fluid" src="http://image.tmdb.org/t/p/original{{service.logo_path}}" alt="">
+                            </span>       
+                        {% endfor %} 
+                    {% endif %}  
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="container">
+        <div class="row">
+        {% for actor in movie.credits.cast %}
+            <div class="col-2">
+                <a href="{% url 'actor' actor.id %}">
+                    <div class="cast-card">
+                        {% if actor.profile_path %}
+                            <img src="http://image.tmdb.org/t/p/original{{actor.profile_path}}" alt="cast-image" class="card-img-top">
+                        {% else %}
+                            {% comment %} TODO uncomment for cloudinary image {% endcomment %}
+                             <img src="https://res.cloudinary.com/eletourneau/image/upload/v1677971943/django-movies/profile-placeholder_vyv5ab.jpg" alt="My Image" class="card-img-top"> 
+                        {% endif %}                     
+                        <div class="card-body">
+                            <h5 class="card-title">
+                            {{ actor.name }}
+                            </h5>
+                            <p class="card-text">{{ actor.character }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}     
+        </div>
+    </div>
+                    {% comment %} TODO Trailer {% endcomment %}
+                    {% comment %} <iframe
+                        class="video"
+                        src="https://www.youtube.com/embed/{{ key }}?autoplay=1&mute=1"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope;"
+                        allowfullscreen autoplay>
+                    </iframe> {% endcomment %}
+{% endblock body %}

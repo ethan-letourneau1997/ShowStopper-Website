@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class='display-1 text-center'>{{ actor.name }}</h1>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                    <img class="card-img-top img-fluid" id="show" src="http://image.tmdb.org/t/p/original{{actor.profile_path}}">
+            </div>
+            <div class="col">
+ 
+            </div>
+        </div>
+    </div>
+{% endblock body %}
